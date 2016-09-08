@@ -13,7 +13,7 @@ gulp.task('styles', () => {
   return styles('.tmp/styles');
 });
 gulp.task('styles-dist', () => {
-  return styles('.dist/styles');
+  return styles('dist/styles');
 });
 
 function styles (dest) {
