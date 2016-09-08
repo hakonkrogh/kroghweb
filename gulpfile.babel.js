@@ -10,6 +10,13 @@ const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
 gulp.task('styles', () => {
+  return styles('.tmp/styles');
+});
+gulp.task('styles-dist', () => {
+  return styles('.dist/styles');
+});
+
+function styles (dest) {
   return gulp.src('app/styles/*.scss')
     .pipe($.plumber())
     .pipe($.sourcemaps.init())
@@ -20,9 +27,9 @@ gulp.task('styles', () => {
     }).on('error', $.sass.logError))
     .pipe($.autoprefixer({browsers: ['last 1 version']}))
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp/styles'))
+    .pipe(gulp.dest(dest))
     .pipe(reload({stream: true}));
-});
+}
 
 function lint(files, options) {
   return () => {
@@ -42,7 +49,7 @@ const testLintOptions = {
 gulp.task('lint', lint('app/scripts/**/*.js'));
 gulp.task('lint:test', lint('test/spec/**/*.js', testLintOptions));
 
-gulp.task('php', ['styles'], () => {
+gulp.task('php', ['styles-dist'], () => {
   const assets = $.useref.assets({searchPath: ['.tmp', 'app', '.']});
 
   return gulp.src('app/*.php')
