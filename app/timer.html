@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <title>Nedtelling!</title>
+
+        <style>
+            #time {
+                height: 100vh;
+                width: 100vv;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 20vw;
+            }
+
+            audio {
+                visibility: hidden;
+                position: absolute;
+                top: -100px;
+                left: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="time"></div>
+
+        <audio id="audio" src="http://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
+        <script>
+            const $time = document.querySelector('#time');
+            const running = false;
+            const limit = 10;
+            
+            let tickStart;
+
+            function tick () {
+                var now = Date.now();
+                let diff = '?';
+
+                if (tickStart) {
+                    diff = (now - tickStart) / 1000;
+                } else {
+                    tickStart = now;
+                }
+
+                if (diff > limit) {
+                    reset();
+                    diff = 0;
+                }
+
+                $time.innerHTML = diff + 's';
+
+                setTimeout(tick, 50);
+            }
+
+            function reset () {
+                playSound();
+                tickStart = null;
+            }
+
+            function playSound () {
+                var sound = document.getElementById("audio");
+                sound.play();
+            }
+
+            // Start game
+            tick();
+
+            document.body.addEventListener('click', reset);
+
+        </script>
+    </body>
+</html>
