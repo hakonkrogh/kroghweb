@@ -63,6 +63,12 @@
             <option value="20">20 sekunder</option>
             <option value="25">25 sekunder</option>
             <option value="30">30 sekunder</option>
+            <option value="45">45 sekunder</option>
+            <option value="60" selected>1 minutt</option>
+            <option value="120">2 minutter</option>
+            <option value="180">3 minutter</option>
+            <option value="240">4 minutter</option>
+            <option value="300">5 minutter</option>
         </select>
 
         <script>
@@ -85,10 +91,25 @@
                 } else {
 
                     var now = Date.now();
-                    let diff = 0;
+                    let diff;
+                    let diffS = 0;
+                    let diffM = 0;
 
                     if (tickStart) {
-                        diff = Math.floor((now - tickStart) / 100) / 10;
+                        diff = (now - tickStart) / 1000;
+                        diffM = Math.floor(diff / 60);
+
+                        if (diff > 0) {
+                            diffS = diff - (diffM * 60);
+                        } else {
+                            diffS = diff;
+                        }
+
+                        diffS = Math.floor(diffS * 10) / 10;
+
+                        if (diffS.toString().indexOf('.') === -1) {
+                            diffS = diffS + '.0';
+                        }
                     } else {
                         tickStart = now;
                     }
@@ -99,10 +120,12 @@
                         diff = 0;
                     }
 
-                    $time.innerHTML = diff + 's';
+                    if (diff) {
+                        $time.innerHTML = (diffM > 0 ? (diffM + 'm ') : '') + diffS + 's';
+                    }
                 }
 
-                setTimeout(tick, 50);
+                setTimeout(tick, 100);
             }
 
             function reset (e) {
@@ -114,9 +137,7 @@
             }
 
             function playSound () {
-                // var sound = document.getElementById("audio");
-                // sound.play();
-                beep.play();
+                beep.play()
             }
 
             function startOrStop (e) {
