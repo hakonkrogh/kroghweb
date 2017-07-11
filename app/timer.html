@@ -31,15 +31,24 @@
                 left: 0;
             }
 
+            button {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+            }
+
             select {
                 position: absolute;
                 top: 10px;
                 right: 10px;
             }
         </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.min.js" integrity="sha256-QX4/AXuyOeg4mIyJz3fZ9c1St34LbN2zJfPv9wgyjGo=" crossorigin="anonymous"></script>
     </head>
     <body>
         <div id="time"></div>
+
+        <button>Start/stop</button>
 
         <select>
             <option value="5">5 sekunder</option>
@@ -53,28 +62,41 @@
         <script>
             const $time = document.querySelector('#time');
             const $limit = document.querySelector('select');
-            const running = false;
-            const beep = new Audio('beep.mp3');
+            const $button = document.querySelector('button');
+
+            let running = false;
+            const beep = new Howl({
+                src: ['beep.mp3']
+            });
             
             let tickStart;
 
             function tick () {
-                var now = Date.now();
-                let diff = '?';
-
-                if (tickStart) {
-                    diff = Math.floor((now - tickStart) / 100) / 10;
+                if (!running) {
+                    if (!tickStart) {
+                        reset();
+                        // playSound();
+                        $time.innerHTML = '';
+                    }
                 } else {
-                    tickStart = now;
-                }
 
-                if (diff > parseInt($limit.value)) {
-                    reset();
-                    playSound();
-                    diff = 0;
-                }
+                    var now = Date.now();
+                    let diff = 0;
 
-                $time.innerHTML = diff + 's';
+                    if (tickStart) {
+                        diff = Math.floor((now - tickStart) / 100) / 10;
+                    } else {
+                        tickStart = now;
+                    }
+
+                    if (diff > parseInt($limit.value)) {
+                        reset();
+                        playSound();
+                        diff = 0;
+                    }
+
+                    $time.innerHTML = diff + 's';
+                }
 
                 setTimeout(tick, 50);
             }
@@ -89,11 +111,16 @@
                 beep.play();
             }
 
+            function startOrStop () {
+                running = !running;
+            }
+
             // Start game
             tick();
 
             $time.addEventListener('click', reset);
             $time.addEventListener('touchstart', reset);
+            $button.addEventListener('click', startOrStop);
 
         </script>
     </body>
