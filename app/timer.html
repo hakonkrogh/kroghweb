@@ -41,8 +41,6 @@
     <body>
         <div id="time"></div>
 
-        <audio id="audio" src="http://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
-
         <select>
             <option value="5">5 sekunder</option>
             <option value="10">10 sekunder</option>
@@ -56,6 +54,7 @@
             const $time = document.querySelector('#time');
             const $limit = document.querySelector('select');
             const running = false;
+            const beep = new Audio('beep.mp3');
             
             let tickStart;
 
@@ -64,7 +63,7 @@
                 let diff = '?';
 
                 if (tickStart) {
-                    diff = (now - tickStart) / 1000;
+                    diff = Math.floor((now - tickStart) / 100) / 10;
                 } else {
                     tickStart = now;
                 }
@@ -85,15 +84,16 @@
             }
 
             function playSound () {
-                var sound = document.getElementById("audio");
-                sound.play();
+                // var sound = document.getElementById("audio");
+                // sound.play();
+                beep.play();
             }
 
             // Start game
             tick();
 
-            document.body.addEventListener('click', reset);
-            document.body.addEventListener('touchstart', reset);
+            $time.addEventListener('click', reset);
+            $time.addEventListener('touchstart', reset);
 
         </script>
     </body>
