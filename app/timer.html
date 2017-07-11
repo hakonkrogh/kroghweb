@@ -2,9 +2,14 @@
     <head>
         <title>Nedtelling!</title>
 
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
 
         <style>
+
+            * {
+                touch-action: manipulation;
+            }
+
             body {
                 margin: 0;
             }
@@ -73,11 +78,9 @@
 
             function tick () {
                 if (!running) {
-                    if (!tickStart) {
-                        reset();
-                        // playSound();
-                        $time.innerHTML = '';
-                    }
+                    reset();
+                    // playSound();
+                    $time.innerHTML = '';
                 } else {
 
                     var now = Date.now();
@@ -101,8 +104,12 @@
                 setTimeout(tick, 50);
             }
 
-            function reset () {
+            function reset (e) {
                 tickStart = null;
+
+                if (e && e.preventDefault) {
+                    e.preventDefault();
+                }
             }
 
             function playSound () {
@@ -111,8 +118,12 @@
                 beep.play();
             }
 
-            function startOrStop () {
+            function startOrStop (e) {
                 running = !running;
+
+                if (e && e.preventDefault) {
+                    e.preventDefault();
+                }
             }
 
             // Start game
