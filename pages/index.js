@@ -15,8 +15,9 @@ const Headline = s.h1`
 `;
 
 const HeadlineSub = s.h2`
-    font-size: 20px;
+    font-size: 18px;
     margin: 0 0 10px;
+    font-weight: normal;
 `;
 
 const Footer = s.footer`
