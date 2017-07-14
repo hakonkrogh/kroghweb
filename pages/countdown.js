@@ -1,5 +1,6 @@
 import React from 'react';
 import s from 'styled-components';
+import Head from 'next/head';
 import 'howler';
 
 const Wrap = s.div`
@@ -129,6 +130,9 @@ export default class Countdown extends React.Component {
 
         return (
             <Wrap onClick={this.reset}>
+                <Head>
+                    <title>Countdown</title>
+                </Head>
                 <ButtonStartStop onClick={this.onStartStopClick}>Start/stop</ButtonStartStop>
                 <DropdownLimit value={limit} onChange={this.onLimitChange}>
                     <option value='5'>5 sekunder</option>

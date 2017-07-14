@@ -1,5 +1,6 @@
 import React from 'react';
 import s from 'styled-components';
+import Head from 'next/head';
 
 const Wrap = s.div`
     color: #505050;
@@ -27,6 +28,9 @@ const Footer = s.footer`
 `;
 
 export default () => <Wrap>
+    <Head>
+        <title>Krogh Web</title>
+    </Head>
     <main>
         <Headline>Krogh Web</Headline>
         <HeadlineSub>Grensesnittspesialist</HeadlineSub>
