@@ -1,3 +1,4 @@
 node_modules
 .tmp
 .next
+.DS_STORE
