@@ -32,6 +32,15 @@ const Footer = s.footer`
     padding-top: 19px;
     color: #777;
     border-top: 1px solid #e5e5e5;
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
 `;
 
 export default function FrontPage() {
@@ -47,7 +56,10 @@ export default function FrontPage() {
           React - Next.js - Styled Components - Frontend Performace
         </HeadlineSub>
       </main>
-      <Footer>Org.nr: 993189359</Footer>
+      <Footer>
+        <a href="https://twitter.com/hakonkrogh">twitter.com/hakonkrogh</a> -
+        Org.nr: 993189359
+      </Footer>
     </Wrap>
   );
 }
