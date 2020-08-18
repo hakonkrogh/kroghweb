@@ -1,6 +1,6 @@
-import React from 'react';
-import s from 'styled-components';
-import Head from 'next/head';
+import React from "react";
+import s from "styled-components";
+import Head from "next/head";
 
 const Wrap = s.div`
     color: #505050;
@@ -17,8 +17,15 @@ const Headline = s.h1`
 
 const HeadlineSub = s.h2`
     font-size: 18px;
-    margin: 0 0 10px;
+    margin: 0 0 20px;
     font-weight: normal;
+
+    ${(p) =>
+      p.minor &&
+      `
+      font-size: inherit;
+      color: #777;
+    `};
 `;
 
 const Footer = s.footer`
@@ -27,15 +34,20 @@ const Footer = s.footer`
     border-top: 1px solid #e5e5e5;
 `;
 
-export default () => <Wrap>
-    <Head>
-        <title>Krogh Web</title>
-    </Head>
-    <main>
+export default function FrontPage() {
+  return (
+    <Wrap>
+      <Head>
+        <title>Krogh Web - Frontendarkitekt</title>
+      </Head>
+      <main>
         <Headline>Krogh Web</Headline>
-        <HeadlineSub>Grensesnittspesialist</HeadlineSub>
-    </main>
-    <Footer>
-        Org.nr: 993189359
-    </Footer>
-</Wrap>
+        <HeadlineSub>Frontendarkitekt - Vestfold og Telemark</HeadlineSub>
+        <HeadlineSub minor>
+          React - Next.js - Styled Components - Frontend Performace
+        </HeadlineSub>
+      </main>
+      <Footer>Org.nr: 993189359</Footer>
+    </Wrap>
+  );
+}
