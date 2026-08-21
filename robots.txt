@@ -1,0 +1,23 @@
+# https://kroghweb.no/robots.txt
+
+User-agent: *
+Allow: /
+
+# Commercial SEO crawlers. They index aggressively and return nothing
+# for a two-page site. Remove any line below to let one back in.
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+Sitemap: https://kroghweb.no/sitemap.xml
