@@ -1,34 +1,53 @@
 # kroghweb
 
-Static site for [kroghweb.no](https://kroghweb.no). Plain HTML and CSS — no
-framework, no dependencies, no build step.
+Static site for [kroghweb.no](https://kroghweb.no). Plain HTML and CSS, no
+framework, no dependencies, no build step. Hosted on Cloudflare Workers
+(static assets).
 
 ## Files
 
-| Path            | Serves as              |
-| --------------- | ---------------------- |
-| `index.html`    | `/`                    |
-| `vercel.json`   | caching + clean URLs   |
-| `robots.txt`    | crawler rules          |
-| `sitemap.xml`   | sitemap                |
+| Path                 | Serves as                |
+| -------------------- | ------------------------ |
+| `public/index.html`  | `/`                      |
+| `public/_headers`    | security + cache headers |
+| `public/robots.txt`  | crawler rules            |
+| `public/sitemap.xml` | sitemap                  |
+| `wrangler.jsonc`     | Worker + domain config   |
+
+Only `public/` is served.
 
 ## Local preview
 
-Any static file server works. With no install:
-
 ```sh
-python3 -m http.server 8000
+npx wrangler dev
 ```
 
-Then open <http://localhost:8000>.
+Then open <http://localhost:8787>. This also applies `_headers`.
 
 ## Deploying
 
-Pushing to `master` deploys via Vercel. There is no build — Vercel serves the
-repository root as static files. The Vercel project's **Framework Preset** must
-be set to **Other**; `vercel.json` sets `"framework": null` to match.
+Pushing to `main` deploys via GitHub Actions
+([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)), which runs
+`wrangler deploy`. Pull requests run `wrangler deploy --dry-run` as a check.
+The workflow needs a `CLOUDFLARE_API_TOKEN` repository secret (Cloudflare API
+token from the "Edit Cloudflare Workers" template). There is no build step.
+
+To deploy by hand:
+
+```sh
+npx wrangler deploy
+```
+
+`wrangler.jsonc` binds `kroghweb.no` and `www.kroghweb.no` as custom domains.
+The `kroghweb.no` zone must be on Cloudflare for this to work.
+
+## Email
+
+Email for `@kroghweb.no` is forwarded with Cloudflare Email Routing. Rules are
+set in the Cloudflare dashboard (or `npx wrangler email routing rules`), not in
+this repo.
 
 ## Editing
 
-Edit `index.html` directly. Its CSS lives inline in a `<style>` block, so the
-page is one self-contained file.
+Edit `public/index.html` directly. Its CSS lives inline in a `<style>` block,
+so the page is one self-contained file.
