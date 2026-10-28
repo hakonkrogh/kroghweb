@@ -1,0 +1,38 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  WRANGLER_VERSION: 4.154.0
+  CLOUDFLARE_ACCOUNT_ID: 9060f19fa0a38d810a96cda89572ce47
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      # Pull requests only check that the Worker packages.
+      - name: Check
+        if: github.event_name == 'pull_request'
+        run: npx --yes "wrangler@${WRANGLER_VERSION}" deploy --dry-run
+
+      - name: Deploy
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: npx --yes "wrangler@${WRANGLER_VERSION}" deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

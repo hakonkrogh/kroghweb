@@ -1,0 +1,11 @@
+{
+  "name": "kroghweb",
+  "compatibility_date": "2026-10-28",
+  "assets": {
+    "directory": "./public"
+  },
+  "routes": [
+    { "pattern": "kroghweb.no", "custom_domain": true },
+    { "pattern": "www.kroghweb.no", "custom_domain": true }
+  ]
+}
