@@ -8,64 +8,98 @@
 <link rel="canonical" href="https://kroghweb.no/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#1a2230">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kroghweb.no/">
 <meta property="og:title" content="Krogh Web - Bygger med web-klosser">
 <meta property="og:description" content="Håkon Gullord Krogh bygger med web-klosser. Sandefjord, Norge.">
 <meta property="og:locale" content="nb_NO">
 <style>
-:root { color-scheme: light; }
+:root {
+  color-scheme: dark;
+  --sky-top: #1a2230;
+  --sky-mid: #283648;
+  --sky-low: #4a5a6a;
+  --text: #ebeef0;
+  --muted: #a3b0bc;
+  --moon: #f1e9d8;
+}
+html {
+  background: var(--sky-low);
+}
 body {
   margin: 0;
-  background: #fff;
-  color: #505050;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-low) 100%);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  text-align: center;
 }
 .wrap {
-  margin: 0 auto;
-  padding: 30px;
-  max-width: 500px;
+  padding: 64px 24px;
+}
+.moon {
+  width: 14px;
+  height: 14px;
+  margin: 0 auto 48px;
+  border-radius: 50%;
+  background: var(--moon);
+  box-shadow: 0 0 24px 6px rgba(241, 233, 216, 0.25);
 }
 h1 {
-  font-size: 36px;
-  margin: 0 0 10px;
+  font-size: clamp(36px, 8vw, 56px);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  margin: 0 0 18px;
 }
 h2 {
   font-size: 18px;
-  margin: 0 0 20px;
-  font-weight: normal;
+  font-weight: 300;
+  color: var(--text);
+  opacity: 0.85;
+  margin: 0 0 8px;
 }
 h2.minor {
-  font-size: inherit;
-  color: #777;
+  font-size: 15px;
+  color: var(--muted);
+  opacity: 1;
+  margin: 0;
 }
 footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+  margin-top: 72px;
+  font-size: 14px;
 }
 footer a {
-  color: inherit;
-  text-decoration: underline;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 14px;
+  border: 1px solid rgba(163, 176, 188, 0.3);
+  border-radius: 999px;
+  transition: color 0.2s, border-color 0.2s;
 }
 footer a:hover {
-  text-decoration: none;
+  color: var(--text);
+  border-color: rgba(235, 238, 240, 0.6);
 }
 footer a:focus-visible {
-  outline: 2px solid #505050;
-  outline-offset: 2px;
+  outline: 2px solid var(--moon);
+  outline-offset: 3px;
 }
 </style>
 </head>
 <body>
 <div class="wrap">
   <main>
+    <div class="moon" aria-hidden="true"></div>
     <h1>Krogh Web</h1>
     <h2>Bygger med web-klosser</h2>
     <h2 class="minor">Sandefjord, Norge</h2>
   </main>
   <footer>
-    <a href="https://www.linkedin.com/in/hakongullordkrogh/">linkedin.com/in/hakongullordkrogh</a>
+    <a href="https://www.linkedin.com/in/hakongullordkrogh/">LinkedIn</a>
   </footer>
 </div>
 </body>
